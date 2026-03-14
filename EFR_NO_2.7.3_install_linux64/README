@@ -1,0 +1,45 @@
+  EFR 2 Linux
+  -----------
+
+1. Start EFR
+
+Make run.sh file executable
+
+    chmod +x run.sh
+
+Execute run.sh file
+
+    ./run.sh
+
+
+
+2. Install as service
+
+Change these lines in file efr.service to execute run.sh in your path as your user:
+
+    User=efr
+    ExecStart=/path/to/EFR/run.sh
+
+Copy file efr.service to /etc/systemd/system/
+
+    sudo cp efr.service /etc/systemd/system/
+
+
+
+3. Control service
+
+start efr
+
+    sudo systemctl start efr
+
+stop efr
+
+    sudo systemctl stop efr
+
+enable automatic start on boot
+
+    sudo systemctl enable efr
+
+disable automatic start on boot
+
+    sudo systemctl disable efr

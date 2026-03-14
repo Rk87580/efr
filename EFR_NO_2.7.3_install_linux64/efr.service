@@ -1,0 +1,11 @@
+[Unit]
+Description=EFR Service
+
+[Service]
+User=efr
+ExecStart=/bin/bash /path/to/EFR/run.sh
+TimeoutSec=10
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
