@@ -1,0 +1,32 @@
+{
+    "arch": "linux64",
+    "ValidArgConfigList": [
+        "--service",
+        "--service-user",
+        "--service-path",
+        "--service-manual"
+    ],
+    "LibraryConfig": {
+        "LibUDev": false
+    },
+    "ServiceConfig": {
+        "ServiceSystem": "systemd",
+        "ServiceControlCommand": "systemctl [start|stop|enable|disable] efr",
+        "ServiceSystemDir": "/etc/systemd/system",
+        "ServiceFile": "efr.service",
+        "ServiceExec": "%EFR-INSTALL-ROOT-PATH%/run.sh",
+        "ServiceDefaultUser": "efr",
+        "ServiceReplacerList": [
+            {
+                "searchRegex": "^(\\s*)User=.*\\s*$",
+                "regexFlags": "m",
+                "replaceValue": "$1User=%EFR-SERVICE-USER%"
+            },
+            {
+                "searchRegex": "^(\\s*)ExecStart=.*\\s*$",
+                "regexFlags": "m",
+                "replaceValue": "$1ExecStart=/bin/bash %EFR-SERVICE-PATH%"
+            }
+        ]
+    }
+}
