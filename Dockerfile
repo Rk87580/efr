@@ -2,12 +2,13 @@ FROM ubuntu:20.04
 
 WORKDIR /app
 
-# Install dependencies + Node 10 manually
+# Install dependencies + Node 10
 RUN apt-get update && \
     apt-get install -y \
         curl \
         bash \
         unzip \
+        xz-utils \
         libstdc++6 \
         libssl1.1 \
         ca-certificates && \
@@ -18,15 +19,17 @@ RUN apt-get update && \
     ln -s /usr/local/node/bin/npm /usr/bin/npm && \
     rm node.tar.xz
 
-# Copy project
+# Copy project files
 COPY . .
 
+# Go to app directory
 WORKDIR /app/EFR_NO_2.7.3_install_linux64
 
-# permissions
-RUN chmod +x run.sh
+# Give permission to scripts
+RUN chmod +x install.sh run.sh
 
-# run installer using system node
-RUN node app/install.js
+# Run installer
+RUN ./install.sh
 
+# Start application
 CMD ["./run.sh"]
